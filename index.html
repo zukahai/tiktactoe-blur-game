@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.ico">
+    <title>TikTacToe | HaiZuka</title>
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/modal.css">
+  </head>
+  <body>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1> TikTacToe</h1>
+        <!-- <img src="./assets/images/ufo.png" alt srcset> -->
+        <h2>Luật chơi</h2>
+        <p>
+          - Người chơi sẽ chọn X hoặc O để bắt đầu trò chơi. <br>
+          - Người chơi sẽ chơi với máy. <br>
+          - Người chơi sẽ chọn vị trí để đánh X hoặc O. <br>
+          - Máy sẽ đánh ngẫu nhiên. <br>
+          - Người chơi và máy sẽ đánh lần lượt cho đến khi có người chiến thắng hoặc hết ô trống. <br>
+          - Người chơi sẽ thắng nếu có 3 X hoặc O liên tiếp theo hàng ngang, hàng dọc hoặc đường chéo. <br>
+          - Máy sẽ thắng nếu có 3 X hoặc O liên tiếp theo hàng ngang, hàng dọc hoặc đường chéo. <br>
+          - Nếu hết ô trống mà không có người chiến thắng thì kết quả là hòa. <br>
+        </p>
+        <input type="button" id="input-close" value="Đã hiểu">
+      </div>
+    </div>
+
+    <!-- <script src="./src/utils/modal.js"></script> -->
+    <script src="./src/utils/fps.js"></script>
+    <script src="./src/model/game.js"></script>
+  </body>
+</html>
