@@ -16,15 +16,15 @@
         <img style="width: 150px; height: 150px; object-fit: cover;" src="../assets/images/board.png" alt srcset>
         <h2>Luật chơi</h2>
         <p>
-          Mỗi lượt chơi, người chơi sẽ chọn một ô trống để đánh dấu X hoặc O.
-          Người chơi nào có 3 dấu X hoặc O liên tiếp theo hàng ngang, hàng dọc hoặc đường chéo sẽ thắng.<br>
-          Chỉ có thể tồn tại tối đa 3 dấu X hoặc 3 dấu O, nếu đánh dấu thứ 4 thì dấu đầu tiên sẽ bị xóa.
+          Mỗi lượt chơi, người chơi sẽ chọn một ô trống để đánh dấu X. BOT sẽ đánh dấu O
+          Người chơi cần đánh 3 dấu X cùng hàng ngang, hàng dọc hoặc đường chéo sẽ thắng.<br>
+          Chỉ có thể tồn tại tối đa 3 dấu X và 3 dấu O trên cùng 1 bàn đấu, nếu đánh dấu thứ 4 thì dấu đầu tiên sẽ bị xóa.
         </p>
         <input type="button" id="input-close" value="Đã hiểu">
       </div>
     </div>
     <script src="./src/utils/minimax.js"></script>
-    <!-- <script src="./src/utils/modal.js"></script> -->
+    <script src="./src/utils/modal.js"></script>
     <script src="./src/utils/fps.js"></script>
     <script src="./src/model/item.js"></script>
     <script src="./src/model/board.js"></script>
