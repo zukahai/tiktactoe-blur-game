@@ -18,9 +18,9 @@ class Minimax{
     static getScore(data, depth){
         let winner = Minimax.checkWin(data);
         if(winner === 'o'){
-            return 10 - depth;
+            return 13 - depth;
         } else if(winner === 'x'){
-            return depth - 10;
+            return depth - 13;
         } else {
             return 0;
         }
@@ -45,8 +45,10 @@ class Minimax{
         return '';
     }
 
-    static minimax(board, depth, isMax){
-        if (depth > 7) return 0;
+    static minimax(board, depth, isMax, maxDepth){
+        if (depth > maxDepth) {
+            return 0;
+        }
         let score = Minimax.getScore(board, depth);
         if(score !== 0){
             return score;
@@ -60,7 +62,7 @@ class Minimax{
             for(let i = 0; i < emptyCells.length; i++){
                 let {i: row, j: col} = emptyCells[i];
                 let board_temp = Minimax.hit(board, row, col, 'o');
-                let score = Minimax.minimax(board_temp, depth + 1, false);
+                let score = Minimax.minimax(board_temp, depth + 1, false, maxDepth);
                 best = Math.max(score, best);
             }
             return best;
@@ -69,7 +71,7 @@ class Minimax{
             for(let i = 0; i < emptyCells.length; i++){
                 let {i: row, j: col} = emptyCells[i];
                 let board_temp = Minimax.hit(board, row, col, 'x');
-                let score = Minimax.minimax(board_temp, depth + 1, true);
+                let score = Minimax.minimax(board_temp, depth + 1, true, maxDepth);
                 best = Math.min(score, best);
             }
             return best;
@@ -108,16 +110,16 @@ class Minimax{
     static getBestMove(board){
         let best = -Infinity;
         let emptyCells = Minimax.getEmptyCells(board);
+        let maxDepth = emptyCells.length == 3 ? 13: 8;
         for(let i = 0; i < emptyCells.length; i++){
             let {i: row, j: col} = emptyCells[i];
             let board_temp = Minimax.hit(board, row, col, 'o');
-            let score = Minimax.minimax(board_temp, 0, false);
+            let score = Minimax.minimax(board_temp, 0, false, maxDepth);
             if(score > best){
                 best = score;
                 this.bestMove = {row, col, score};
             }
         }
-        console.log(best);
         return this.bestMove;
     }
 }

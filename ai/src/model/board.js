@@ -17,7 +17,6 @@ class Board extends Item {
             [, ,]
         ]
         this.score = -100;
-        console.log('board');
     }
 
     getAtrribute() {
@@ -142,6 +141,7 @@ class Board extends Item {
                 }
             });
         });
+        this.draw();
     }
 
     checkDraw() {
@@ -180,12 +180,10 @@ class Board extends Item {
     }
 
     autoPlay() {
-        let {row, col, score} = Minimax.getBestMove(this.data);
+        let { row, col, score } = Minimax.getBestMove(this.data);
         this.score = score;
-        setTimeout(() => {
-            this.setValue(row, col, this.type);
-            this.setPlayerTurn(true);
-        }, 500);
+        this.setValue(row, col, this.type);
+        this.setPlayerTurn(true);
     }
 
     isPlayerTurn() {
@@ -194,5 +192,7 @@ class Board extends Item {
 
     setPlayerTurn(isPlayer) {
         this.isPlayer = isPlayer;
+        this.setArrayXO();
+        this.draw();
     }
 }
