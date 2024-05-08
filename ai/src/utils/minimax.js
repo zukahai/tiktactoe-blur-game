@@ -110,7 +110,7 @@ class Minimax{
     static getBestMove(board){
         let best = -Infinity;
         let emptyCells = Minimax.getEmptyCells(board);
-        let maxDepth = emptyCells.length == 3 ? 13: 8;
+        let maxDepth = emptyCells.length == 3 ? 13: 7;
         for(let i = 0; i < emptyCells.length; i++){
             let {i: row, j: col} = emptyCells[i];
             let board_temp = Minimax.hit(board, row, col, 'o');
@@ -120,6 +120,7 @@ class Minimax{
                 this.bestMove = {row, col, score};
             }
         }
+        console.log(this.bestMove);
         return this.bestMove;
     }
 }

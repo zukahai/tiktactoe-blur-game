@@ -193,7 +193,7 @@ class Board extends Item {
 
     setPlayerTurn(isPlayer) {
         this.isPlayer = isPlayer;
-        this.setArrayXO();
+        this.setXoByArray();
         this.draw();
     }
 }
