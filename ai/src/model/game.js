@@ -23,10 +23,15 @@ class Game {
             if (this.board.checkWin(this.board.data) !== '') {
                 return;
             }
+            if (!this.board.isPlayerTurn()) {
+                return;
+            }
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             let { row, col } = this.board.getRowCol(x, y);
             let isTrue = this.board.setValue(row, col, this.board.type);
+            if (isTrue)
+                this.board.setPlayerTurn(false);
             if (this.board.checkWin(this.board.data) === '' && isTrue) {
                 this.board.autoPlay();
             } 

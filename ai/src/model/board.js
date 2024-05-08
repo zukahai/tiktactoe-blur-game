@@ -2,6 +2,7 @@ class Board extends Item {
     constructor(game, width, height, xAlignment, yAlignment) {
         super(game, width, height, xAlignment, yAlignment);
         this.getAtrribute();
+        this.isPlayer = true;
         this.data = [
             ['', '', ''],
             ['', '', ''],
@@ -180,6 +181,15 @@ class Board extends Item {
         let {row, col} = Minimax.getBestMove(this.data);
         setTimeout(() => {
             this.setValue(row, col, this.type);
+            this.setPlayerTurn(true);
         }, 500);
+    }
+
+    isPlayerTurn() {
+        return this.isPlayer;
+    }
+
+    setPlayerTurn(isPlayer) {
+        this.isPlayer = isPlayer;
     }
 }
