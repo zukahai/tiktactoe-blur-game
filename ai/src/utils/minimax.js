@@ -114,7 +114,7 @@ class Minimax{
             let score = Minimax.minimax(board_temp, 0, false);
             if(score > best){
                 best = score;
-                this.bestMove = {row, col};
+                this.bestMove = {row, col, score};
             }
         }
         console.log(best);
