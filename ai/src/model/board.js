@@ -178,6 +178,8 @@ class Board extends Item {
 
     autoPlay() {
         let {row, col} = Minimax.getBestMove(this.data);
-        this.setValue(row, col, this.type);
+        setTimeout(() => {
+            this.setValue(row, col, this.type);
+        }, 500);
     }
 }

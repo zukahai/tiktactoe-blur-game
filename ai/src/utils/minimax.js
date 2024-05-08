@@ -46,7 +46,7 @@ class Minimax{
     }
 
     static minimax(board, depth, isMax){
-        if (depth > 5) return 0;
+        if (depth > 7) return 0;
         let score = Minimax.getScore(board, depth);
         if(score !== 0){
             return score;
