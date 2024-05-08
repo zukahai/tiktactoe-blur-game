@@ -7,7 +7,7 @@ class Board extends Item {
             ['', '', ''],
             ['', '', '']
         ];
-        this.type = 'X';
+        this.type = 'x';
         this.arrayX = [];
         this.arrayO = [];
         this.xo = [
@@ -37,7 +37,7 @@ class Board extends Item {
     drawXO() {
         this.data.forEach((row, i) => {
             row.forEach((col, j) => {
-                if (col === 'X' || col === 'O' || col === 'Xb' || col === 'Ob') {
+                if (col === 'x' || col === 'o' || col === 'xb1' || col === 'ob1' || col === 'xb2' || col === 'ob2') {
                     let x = this.xAlignment + j * this.width / 3;
                     let y = this.yAlignment + i * this.height / 3;
                     if (this.xo[i][j] === undefined) {
@@ -60,27 +60,30 @@ class Board extends Item {
     }
 
     setValue(row, col, value) {
-        if (this.data[row][col] === '' && (value === 'X' || value === 'O') && row >= 0 && row < 3 && col >= 0 && col < 3) {
+        if (this.data[row][col] === '' && (value === 'x' || value === 'o') && row >= 0 && row < 3 && col >= 0 && col < 3) {
             this.data[row][col] = value;
             this.setArrayXO(row, col, value);
-            this.type = this.type === 'X' ? 'O' : 'X';
+            this.type = this.type === 'x' ? 'o' : 'x';
             return true;
         }
         return false;
     }
 
     setArrayXO(row, col, value) {
-        if (value === 'X') {
+        if (value === 'x') {
             if (this.arrayX.length >= 3) {
                 let { row, col } = this.arrayX.shift();
                 this.data[row][col] = '';
             }
             this.arrayX.push({ row, col });
             if (this.arrayX.length === 3) {
+                console.log(this.arrayX);
                 let { row, col } = this.arrayX[0];
-                this.data[row][col] = 'Xb';
+                this.data[row][col] = 'xb2';
+                let { row: row2, col: col2 } = this.arrayX[1];
+                this.data[row2][col2] = 'xb1';
             }
-        } else if (value === 'O') {
+        } else if (value === 'o') {
             if (this.arrayO.length >= 3) {
                 let { row, col } = this.arrayO.shift();
                 this.data[row][col] = '';
@@ -88,7 +91,9 @@ class Board extends Item {
             this.arrayO.push({ row, col });
             if (this.arrayO.length === 3) {
                 let { row, col } = this.arrayO[0];
-                this.data[row][col] = 'Ob';
+                this.data[row][col] = 'ob2';
+                let { row: row2, col: col2 } = this.arrayO[1];
+                this.data[row2][col2] = 'ob1';
             }
         }
         this.setXoByArray();
@@ -96,7 +101,7 @@ class Board extends Item {
 
     checkWin() {
         let data = this.data;
-        data = data.map(row => row.map(col => col === 'Xb' ? 'X' : col === 'Ob' ? 'O' : col));
+        data = data.map(row => row.map(col => col === 'xb1' || col == 'xb2' ? 'x' : col === 'ob1' || col == 'ob2' ? 'o' : col));
         for (let i = 0; i < 3; i++) {
             if (data[i][0] === data[i][1] && data[i][1] === data[i][2] && data[i][0] !== '') {
                 return data[i][0];
@@ -117,7 +122,7 @@ class Board extends Item {
     setXoByArray() {
         this.xo.forEach((row, i) => {
             row.forEach((col, j) => {
-                if (this.data[i][j] === 'X' || this.data[i][j] === 'O' || this.data[i][j] === 'Xb' || this.data[i][j] === 'Ob') {
+                if (this.data[i][j] !== '') {
                     let x = this.xAlignment + j * this.width / 3;
                     let y = this.yAlignment + i * this.height / 3;
                     if (this.xo[i][j] === undefined) {

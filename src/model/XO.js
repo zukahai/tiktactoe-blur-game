@@ -7,17 +7,7 @@ class XO extends Item {
     }
 
     getImage() {
-        if (this.type === 'X') {
-            this.image.src = 'assets/images/x.png';
-        } else if (this.type === 'O') {
-            this.image.src = 'assets/images/o.png';
-        } else if (this.type === 'Xb') {
-            this.image.src = 'assets/images/x_blur.png';
-        } else if (this.type === 'Ob') {
-            this.image.src = 'assets/images/o_blur.png';
-        } else {
-            this.image.src = 'assets/images/empty.png';
-        }
+        this.image.src = 'assets/images/' + this.type + '.png';
     }
 
     setImage() {
