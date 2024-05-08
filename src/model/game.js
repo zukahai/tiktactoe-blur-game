@@ -80,7 +80,7 @@ class Game {
 
     draw() {
         this.clearScreen();
-        this.drawFPS();
+        // this.drawFPS();
         this.board.draw();
         this.drawText();
     }
