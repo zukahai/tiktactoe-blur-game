@@ -84,6 +84,10 @@ class Board extends Item {
                 let { row: row2, col: col2 } = this.arrayX[1];
                 this.data[row2][col2] = 'xb1';
             }
+            if (this.arrayX.length === 2) {
+                let { row, col } = this.arrayX[0];
+                this.data[row][col] = 'xb1';
+            }
         } else if (value === 'o') {
             if (this.arrayO.length >= 3) {
                 let { row, col } = this.arrayO.shift();
@@ -95,6 +99,10 @@ class Board extends Item {
                 this.data[row][col] = 'ob2';
                 let { row: row2, col: col2 } = this.arrayO[1];
                 this.data[row2][col2] = 'ob1';
+            }
+            if (this.arrayO.length === 2) {
+                let { row, col } = this.arrayO[0];
+                this.data[row][col] = 'ob1';
             }
         }
         console.log(this.arrayX);
