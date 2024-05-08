@@ -15,6 +15,7 @@ class Board extends Item {
             [, ,],
             [, ,]
         ]
+        console.log('board');
     }
 
     getAtrribute() {
@@ -60,7 +61,7 @@ class Board extends Item {
     }
 
     setValue(row, col, value) {
-        if (this.data[row][col] === '' && (value === 'x' || value === 'o') && row >= 0 && row < 3 && col >= 0 && col < 3) {
+        if (row >= 0 && row < 3 && col >= 0 && col < 3 && this.data[row][col] === '' && (value === 'x' || value === 'o')) {
             this.data[row][col] = value;
             this.setArrayXO(row, col, value);
             this.type = this.type === 'x' ? 'o' : 'x';
@@ -70,6 +71,7 @@ class Board extends Item {
     }
 
     setArrayXO(row, col, value) {
+        console.log(this.data);
         if (value === 'x') {
             if (this.arrayX.length >= 3) {
                 let { row, col } = this.arrayX.shift();
@@ -77,7 +79,6 @@ class Board extends Item {
             }
             this.arrayX.push({ row, col });
             if (this.arrayX.length === 3) {
-                console.log(this.arrayX);
                 let { row, col } = this.arrayX[0];
                 this.data[row][col] = 'xb2';
                 let { row: row2, col: col2 } = this.arrayX[1];
@@ -96,6 +97,7 @@ class Board extends Item {
                 this.data[row2][col2] = 'ob1';
             }
         }
+        console.log(this.arrayX);
         this.setXoByArray();
     }
 
@@ -153,8 +155,14 @@ class Board extends Item {
             ['', '', ''],
             ['', '', '']
         ];
-        this.type = 'X';
         this.arrayX = [];
         this.arrayO = [];
+        this.xo = [
+            [, ,],
+            [, ,],
+            [, ,]
+        ]
+        this.type = 'x';
+        this.setXoByArray();
     }
 }

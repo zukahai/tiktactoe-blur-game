@@ -7,6 +7,7 @@ class Game {
     }
 
     init() {
+        this.isWin = false;
         this.gameWidth = 0, this.gameHeight = 0;
         this.canvas = document.createElement("canvas");
         this.context = this.canvas.getContext("2d");
@@ -19,14 +20,13 @@ class Game {
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
-            if (this.board.checkWin() !== '' || this.board.checkDraw()) {
+            if (this.board.checkWin() !== '') {
                 return;
             }
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             let { row, col } = this.board.getRowCol(x, y);
             this.board.setValue(row, col, this.board.type);
-            console.log(this.board.data);
         })
 
         document.addEventListener("mousemove", evt => {
@@ -47,6 +47,15 @@ class Game {
         this.fps.calculateFPS(timestamp);
         this.update();
         this.draw();
+        let winner = this.board.checkWin();
+        if (winner !== '' && !this.isWin) {
+            this.isWin = true;
+            setTimeout(() => {
+                alert(winner + " win");
+                this.board.clear();
+                this.isWin = false;
+            }, 1000);
+        }
         requestAnimationFrame((timestamp) => this.loop(timestamp));
     }
 
@@ -90,21 +99,6 @@ class Game {
         this.context.textAlign = 'center';
         this.context.fillStyle = "white";
         this.context.fillText("Turn of " + this.board.type, this.gameWidth / 2, 50);
-        let winner = this.board.checkWin();
-        let draw = this.board.checkDraw();
-        if (winner !== '') {
-            this.context.fillText(winner + " win", this.gameWidth / 2, 100);
-            setTimeout(() => {
-                this.board.clear();
-                document.location.reload();
-            }, 5000);
-        }
-        if (draw) {
-            this.context.fillText("Draw", this.gameWidth / 2, 100);
-            setTimeout(() => {
-                this.board.clear();
-            }, 1000);
-        }
     }
 
     clearScreen() {
