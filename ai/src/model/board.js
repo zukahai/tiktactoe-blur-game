@@ -182,8 +182,9 @@ class Board extends Item {
     autoPlay() {
         let { row, col, score } = Minimax.getBestMove(this.data);
         this.score = score;
-        this.setValue(row, col, this.type);
-        this.setPlayerTurn(true);
+        let isSolveSuccess = this.setValue(row, col, this.type);
+        if (isSolveSuccess)
+            this.setPlayerTurn(true);
     }
 
     isPlayerTurn() {

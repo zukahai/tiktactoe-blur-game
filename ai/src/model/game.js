@@ -28,13 +28,20 @@ class Game {
             }
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+
             let { row, col } = this.board.getRowCol(x, y);
-            let isTrue = this.board.setValue(row, col, this.board.type);
-            if (isTrue) {
+            let isSolveStep = this.board.setValue(row, col, this.board.type);
+            if (isSolveStep) {
                 this.board.setPlayerTurn(false);
-                console.log(this.board.data);
+                this.board.autoPlay();
+                let isSolveSuccess = this.board.setValue(0, 0, this.board.type);
+                if (isSolveSuccess)
+                    this.board.setPlayerTurn(true);
+            } else {
+                console.log("Can't solve step");
             }
-            
+
+
         })
 
         document.addEventListener("mousemove", evt => {
@@ -49,7 +56,9 @@ class Game {
         })
     }
 
-   
+    test(params) {
+        
+    }
 
     loop(timestamp) {
         this.fps.calculateFPS(timestamp);
@@ -63,11 +72,8 @@ class Game {
                 alert(winner + " win");
                 this.board.clear();
                 this.isWin = false;
-            }, 1000);
+            }, 500);
         }
-        if (this.board.checkWin(this.board.data) === '' && this.board.isPlayerTurn() === false){
-            this.board.autoPlay();
-        } 
         requestAnimationFrame((timestamp) => this.loop(timestamp));
     }
 
