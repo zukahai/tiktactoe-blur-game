@@ -27,7 +27,7 @@ class Board extends Item {
 
     setImage() {
         this.image = new Image();
-        this.image.src = "assets/images/board.png";
+        this.image.src = "../assets/images/board.png";
     }
 
     draw() {
@@ -71,7 +71,6 @@ class Board extends Item {
     }
 
     setArrayXO(row, col, value) {
-        console.log(this.data);
         if (value === 'x') {
             if (this.arrayX.length >= 3) {
                 let { row, col } = this.arrayX.shift();
@@ -105,7 +104,6 @@ class Board extends Item {
                 this.data[row][col] = 'ob1';
             }
         }
-        console.log(this.arrayX);
         this.setXoByArray();
     }
 
@@ -176,5 +174,10 @@ class Board extends Item {
     showResult() {
         this.data = this.data.map(row => row.map(col => col === 'xb1' || col == 'xb2' ? 'x' : col === 'ob1' || col == 'ob2' ? 'o' : col));
         this.setXoByArray();
+    }
+
+    autoPlay() {
+        let {row, col} = Minimax.getBestMove(this.data);
+        this.setValue(row, col, this.type);
     }
 }

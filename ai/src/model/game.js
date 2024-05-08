@@ -27,6 +27,9 @@ class Game {
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             let { row, col } = this.board.getRowCol(x, y);
             this.board.setValue(row, col, this.board.type);
+            if (this.board.checkWin(this.board.data) === '') {
+                this.board.autoPlay();
+            } 
         })
 
         document.addEventListener("mousemove", evt => {
