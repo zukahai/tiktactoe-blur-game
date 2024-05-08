@@ -13,23 +13,18 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <h1> TikTacToe</h1>
-        <!-- <img src="./assets/images/ufo.png" alt srcset> -->
+        <img style="width: 150px; height: 150px; object-fit: cover;" src="./assets/images/board.png" alt srcset>
         <h2>Luật chơi</h2>
         <p>
-          - Người chơi sẽ chọn X hoặc O để bắt đầu trò chơi. <br>
-          - Người chơi sẽ chơi với máy. <br>
-          - Người chơi sẽ chọn vị trí để đánh X hoặc O. <br>
-          - Máy sẽ đánh ngẫu nhiên. <br>
-          - Người chơi và máy sẽ đánh lần lượt cho đến khi có người chiến thắng hoặc hết ô trống. <br>
-          - Người chơi sẽ thắng nếu có 3 X hoặc O liên tiếp theo hàng ngang, hàng dọc hoặc đường chéo. <br>
-          - Máy sẽ thắng nếu có 3 X hoặc O liên tiếp theo hàng ngang, hàng dọc hoặc đường chéo. <br>
-          - Nếu hết ô trống mà không có người chiến thắng thì kết quả là hòa. <br>
+          Mỗi lượt chơi, người chơi sẽ chọn một ô trống để đánh dấu X hoặc O.
+          Người chơi nào có 3 dấu X hoặc O liên tiếp theo hàng ngang, hàng dọc hoặc đường chéo sẽ thắng.
+          Chỉ có thể tồn tại tối đa 3 dấu X hoặc 3 dấu O, nếu đánh dấu thứ 4 thì dấu đầu tiên sẽ bị xóa.
         </p>
         <input type="button" id="input-close" value="Đã hiểu">
       </div>
     </div>
 
-    <!-- <script src="./src/utils/modal.js"></script> -->
+    <script src="./src/utils/modal.js"></script>
     <script src="./src/utils/fps.js"></script>
     <script src="./src/model/item.js"></script>
     <script src="./src/model/board.js"></script>

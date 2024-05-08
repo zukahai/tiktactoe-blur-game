@@ -14,12 +14,19 @@ class Game {
         this.fps = new FPS();
         this.board = new Board(this, 300, 300, 0, 0);
         this.start();
+
     }
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
+            if (this.board.checkWin() !== '' || this.board.checkDraw()) {
+                return;
+            }
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            let { row, col } = this.board.getRowCol(x, y);
+            this.board.setValue(row, col, this.board.type);
+            console.log(this.board.data);
         })
 
         document.addEventListener("mousemove", evt => {
@@ -65,9 +72,11 @@ class Game {
         this.clearScreen();
         this.drawFPS();
         this.board.draw();
+        this.drawText();
     }
 
     drawFPS() {
+        this.context.textAlign = 'left';
         this.context.font = (20) + 'px NVNPixelFJVerdana8pt';
         this.context.fillStyle = "white";
         let fps = this.fps.getFPS();
@@ -77,14 +86,25 @@ class Game {
     }
 
     drawText() {
-        this.context.font = this.getSize() / 1.5 + 'px Arial Black';
-        this.context.fillStyle = "#FF00CC";
-        let s = " steps"
-        if (step < 2)
-            s = " step"
-        this.context.textAlign = "center";
-        this.context.fillText(step + s + " left to get to the red box", this.gameWidth / 2, Yalignment - sizeBlock / 2);
-        this.context.fillText("Level " + level, this.gameWidth / 2, Yalignment + sizeBlock / 2 + sizeChess);
+        this.context.font = (20) + 'px NVNPixelFJVerdana8pt';
+        this.context.textAlign = 'center';
+        this.context.fillStyle = "white";
+        this.context.fillText("Turn of " + this.board.type, this.gameWidth / 2, 50);
+        let winner = this.board.checkWin();
+        let draw = this.board.checkDraw();
+        if (winner !== '') {
+            this.context.fillText(winner + " win", this.gameWidth / 2, 100);
+            setTimeout(() => {
+                this.board.clear();
+                document.location.reload();
+            }, 5000);
+        }
+        if (draw) {
+            this.context.fillText("Draw", this.gameWidth / 2, 100);
+            setTimeout(() => {
+                this.board.clear();
+            }, 1000);
+        }
     }
 
     clearScreen() {
