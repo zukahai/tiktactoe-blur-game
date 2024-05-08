@@ -12,6 +12,7 @@ class Game {
         this.context = this.canvas.getContext("2d");
         document.body.appendChild(this.canvas);
         this.fps = new FPS();
+        this.board = new Board(this, 300, 300, 0, 0);
         this.start();
     }
 
@@ -63,6 +64,7 @@ class Game {
     draw() {
         this.clearScreen();
         this.drawFPS();
+        this.board.draw();
     }
 
     drawFPS() {
@@ -89,6 +91,7 @@ class Game {
         this.context.clearRect(0, 0, this.gameWidth, this.gameHeight);
         this.context.fillStyle = '#000000';
         this.context.fillRect(0, 0, this.gameWidth, this.gameHeight);
+        this.board.getAtrribute();
     }
 }
 
