@@ -41,6 +41,8 @@ class Game {
                 console.log("Can't solve step");
             }
 
+            this.test();
+
 
         })
 
@@ -57,7 +59,15 @@ class Game {
     }
 
     test(params) {
-        
+        let a = [];
+        for (let i = 0; i < 3; i++) {
+            a.push(Array(3).fill(''));
+        }
+        console.log(a); // Log mảng
+
+        a[0][0] = 'x'; // Thay đổi một phần tử trong mảng con
+        console.log(a); // Log lại mảng
+
     }
 
     loop(timestamp) {
