@@ -173,4 +173,9 @@ class Board extends Item {
         this.type = 'x';
         this.setXoByArray();
     }
+
+    showResult() {
+        this.data = this.data.map(row => row.map(col => col === 'xb1' || col == 'xb2' ? 'x' : col === 'ob1' || col == 'ob2' ? 'o' : col));
+        this.setXoByArray();
+    }
 }

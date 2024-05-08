@@ -50,6 +50,7 @@ class Game {
         let winner = this.board.checkWin();
         if (winner !== '' && !this.isWin) {
             this.isWin = true;
+            this.board.showResult();
             setTimeout(() => {
                 alert(winner + " win");
                 this.board.clear();
@@ -95,10 +96,10 @@ class Game {
     }
 
     drawText() {
-        this.context.font = (20) + 'px NVNPixelFJVerdana8pt';
+        this.context.font = (40) + 'px NVNPixelFJVerdana8pt';
         this.context.textAlign = 'center';
         this.context.fillStyle = "white";
-        this.context.fillText("Turn of " + this.board.type, this.gameWidth / 2, 50);
+        this.context.fillText("Turn of " + this.board.type.toUpperCase(), this.gameWidth / 2, 75);
     }
 
     clearScreen() {
