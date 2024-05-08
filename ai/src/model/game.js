@@ -58,17 +58,27 @@ class Game {
         })
     }
 
-    test(params) {
-        let a = [];
-        for (let i = 0; i < 3; i++) {
-            a.push(Array(3).fill(''));
+    createEmptyMatrix(rows, cols) {
+        let matrix = [];
+        for (let i = 0; i < rows; i++) {
+            let row = [];
+            for (let j = 0; j < cols; j++) {
+                row.push('');
+            }
+            matrix.push(row);
         }
-        console.log(a); // Log mảng
-
-        a[0][0] = 'x'; // Thay đổi một phần tử trong mảng con
-        console.log(a); // Log lại mảng
-
+        return matrix;
     }
+
+    test(params) {
+        let a = this.createEmptyMatrix(3, 3);
+        console.log(JSON.parse(JSON.stringify(a))); // Log một bản sao sâu của mảng a trước khi thay đổi
+        
+        a[0][0] = 'x'; // Thay đổi một phần tử trong mảng con
+        console.log(a); // Log lại mảng sau khi thay đổi
+    }
+    
+    
 
     loop(timestamp) {
         this.fps.calculateFPS(timestamp);
