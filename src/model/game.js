@@ -99,7 +99,8 @@ class Game {
         this.context.font = (40) + 'px NVNPixelFJVerdana8pt';
         this.context.textAlign = 'center';
         this.context.fillStyle = "white";
-        this.context.fillText("Turn of " + this.board.type.toUpperCase(), this.gameWidth / 2, 75);
+        let Y = this.isMobile() ? this.gameHeight / 5 : 10;
+        this.context.fillText("Turn of " + this.board.type.toUpperCase(), this.gameWidth / 2, 100 + Y);
     }
 
     clearScreen() {
@@ -107,6 +108,10 @@ class Game {
         this.context.fillStyle = '#000000';
         this.context.fillRect(0, 0, this.gameWidth, this.gameHeight);
         this.board.getAtrribute();
+    }
+
+    isMobile() {
+        return this.gameWidth < this.gameHeight;
     }
 }
 
