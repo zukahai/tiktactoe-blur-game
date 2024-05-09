@@ -3,6 +3,9 @@ class Minimax{
         this.bestMove = null;
     }
 
+    static norDepth = 7;
+    static maxDepth = 13;
+
     static getEmptyCells(data){
         let emptyCells = [];
         for(let i = 0; i < data.length; i++){
@@ -110,17 +113,28 @@ class Minimax{
     static getBestMove(board){
         let best = -Infinity;
         let emptyCells = Minimax.getEmptyCells(board);
-        let maxDepth = emptyCells.length == 3 ? 13: 7;
+        let maxDepth = emptyCells.length == 3 ? Minimax.maxDepth: Minimax.norDepth;
+        let ans = new Array(3).fill(null).map(() => new Array(3).fill(null));
         for(let i = 0; i < emptyCells.length; i++){
             let {i: row, j: col} = emptyCells[i];
             let board_temp = Minimax.hit(board, row, col, 'o');
             let score = Minimax.minimax(board_temp, 0, false, maxDepth);
+            ans[row][col] = score;
             if(score > best){
                 best = score;
                 this.bestMove = {row, col, score};
             }
         }
-        console.log(this.bestMove);
-        return this.bestMove;
+        let ansRandom = [];
+        console.log(best);
+        for(let i = 0; i < ans.length; i++){
+            for(let j = 0; j < ans[i].length; j++){
+                if(ans[i][j] === best){
+                    ansRandom.push({row: i, col: j, score: ans[i][j]});
+                }
+            }
+        }
+        let random = Math.floor(Math.random() * ansRandom.length);
+        return ansRandom[random];
     }
 }

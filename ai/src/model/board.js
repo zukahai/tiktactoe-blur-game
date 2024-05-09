@@ -16,7 +16,7 @@ class Board extends Item {
             [, ,],
             [, ,]
         ]
-        this.score = -100;
+        this.score = 0;
     }
 
     getAtrribute() {
@@ -171,7 +171,7 @@ class Board extends Item {
         ]
         this.type = 'x';
         this.setXoByArray();
-        this.score = -100;
+        this.score = 0;
     }
 
     showResult() {

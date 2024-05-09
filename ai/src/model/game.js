@@ -116,7 +116,14 @@ class Game {
         let Y = this.isMobile() ? this.gameHeight / 5 : 10;
         this.context.fillText("Turn of " + this.board.type.toUpperCase(), this.gameWidth / 2, 50 + Y);
         this.context.font = (20) + 'px NVNPixelFJVerdana8pt';
-        this.context.fillText("Win rate: " + -this.board.score + "%", this.gameWidth / 2, 100 + Y);
+        let winRate = this.board.score;
+        winRate = Math.floor((100 / Minimax.maxDepth) * winRate);
+        this.context.fillStyle = "cyan";
+        if (winRate > 0)
+            this.context.fillStyle = "red";
+        if (winRate < 0)
+            this.context.fillStyle = "#00ff00";
+        this.context.fillText("Win rate: " + -winRate+ "%", this.gameWidth / 2, 100 + Y);
     }
 
     clearScreen() {
