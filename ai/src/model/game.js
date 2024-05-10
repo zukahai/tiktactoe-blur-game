@@ -4,6 +4,7 @@ class Game {
         this.context = null;
         this.init();
         this.listenMouse();
+        this.stepBot = 10;
     }
 
     init() {
@@ -32,8 +33,7 @@ class Game {
             let { row, col } = this.board.getRowCol(x, y);
             let isSolveStep = this.board.setValue(row, col, this.board.type);
             if (isSolveStep) {
-                this.board.setPlayerTurn(false);
-                this.board.autoPlay();
+                this.stepBot = 0;
             } else {
                 console.log("Can't solve step");
             }
@@ -53,10 +53,6 @@ class Game {
         })
     }
 
-    test(params) {
-        
-    }
-
     loop(timestamp) {
         this.fps.calculateFPS(timestamp);
         this.update();
@@ -66,10 +62,15 @@ class Game {
             this.isWin = true;
             this.board.showResult();
             setTimeout(() => {
-                alert(winner + " win");
+                alert("You " + ((winner == 'x') ? "win!" : "lose!"));
                 this.board.clear();
                 this.isWin = false;
             }, 500);
+        }
+        if (this.stepBot++ === 1) {
+            this.draw();
+            this.board.setPlayerTurn(false);
+            this.board.autoPlay();
         }
         requestAnimationFrame((timestamp) => this.loop(timestamp));
     }
@@ -114,6 +115,9 @@ class Game {
         this.context.textAlign = 'center';
         this.context.fillStyle = "white";
         let Y = this.isMobile() ? this.gameHeight / 5 : 10;
+        //yellow light
+        if (this.board.type == 'o')
+            this.context.fillStyle = "yellow";
         this.context.fillText("Turn of " + this.board.type.toUpperCase(), this.gameWidth / 2, 50 + Y);
         this.context.font = (20) + 'px NVNPixelFJVerdana8pt';
         let winRate = this.board.score;
@@ -123,7 +127,7 @@ class Game {
             this.context.fillStyle = "red";
         if (winRate < 0)
             this.context.fillStyle = "#00ff00";
-        this.context.fillText("Win rate: " + -winRate+ "%", this.gameWidth / 2, 100 + Y);
+        this.context.fillText("Win rate: " + -winRate + "%", this.gameWidth / 2, 100 + Y);
     }
 
     clearScreen() {

@@ -126,7 +126,6 @@ class Minimax{
             }
         }
         let ansRandom = [];
-        console.log(best);
         for(let i = 0; i < ans.length; i++){
             for(let j = 0; j < ans[i].length; j++){
                 if(ans[i][j] === best){
