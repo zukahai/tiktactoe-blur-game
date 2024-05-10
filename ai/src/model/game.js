@@ -67,7 +67,7 @@ class Game {
                 this.isWin = false;
             }, 500);
         }
-        if (this.stepBot++ === 1) {
+        if (this.stepBot++ === 2) {
             this.draw();
             this.board.setPlayerTurn(false);
             this.board.autoPlay();
