@@ -90,6 +90,7 @@ class Game {
             this.canvas.height = document.documentElement.clientHeight;
             this.gameWidth = this.canvas.width;
             this.gameHeight = this.canvas.height;
+            this.board.setXOchangeSize();
         }
     }
 

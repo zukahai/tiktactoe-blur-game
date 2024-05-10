@@ -187,6 +187,23 @@ class Board extends Item {
             this.setPlayerTurn(true);
     }
 
+    setXOchangeSize() {
+        console.log("change size");
+        this.getAtrribute();
+        this.xo.forEach((row, i) => {
+            row.forEach((col, j) => {
+                if (this.xo[i][j] !== undefined) {
+                    let type = this.xo[i][j].type;
+                    let xAlignment = this.xAlignment + j * this.width / 3;
+                    let yAlignment = this.yAlignment + i * this.height / 3;
+                    let width = this.width / 3;
+                    let height = this.height / 3;
+                    this.xo[i][j] = new XO(this.game, width, height, xAlignment, yAlignment, type);
+                }
+            });
+        });
+    }
+
     isPlayerTurn() {
         return this.isPlayer;
     }
