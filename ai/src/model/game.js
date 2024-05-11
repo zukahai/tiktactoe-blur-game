@@ -4,7 +4,7 @@ class Game {
         this.context = null;
         this.init();
         this.listenMouse();
-        this.stepBot = 10;
+        this.stepBot = 10e6;
     }
 
     init() {
@@ -69,7 +69,7 @@ class Game {
                 this.isWin = false;
             }, 500);
         }
-        if (this.stepBot++ === 2) {
+        if (this.stepBot++ === 15) {
             this.draw();
             this.board.setPlayerTurn(false);
             this.board.autoPlay();

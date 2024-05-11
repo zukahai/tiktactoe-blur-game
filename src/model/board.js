@@ -64,6 +64,7 @@ class Board extends Item {
         if (row >= 0 && row < 3 && col >= 0 && col < 3 && this.data[row][col] === '' && (value === 'x' || value === 'o')) {
             this.data[row][col] = value;
             this.setArrayXO(row, col, value);
+            this.xo[row][col].setAmimation(0);
             this.type = this.type === 'x' ? 'o' : 'x';
             return true;
         }
@@ -71,7 +72,6 @@ class Board extends Item {
     }
 
     setArrayXO(row, col, value) {
-        console.log(this.data);
         if (value === 'x') {
             if (this.arrayX.length >= 3) {
                 let { row, col } = this.arrayX.shift();
@@ -105,7 +105,6 @@ class Board extends Item {
                 this.data[row][col] = 'ob1';
             }
         }
-        console.log(this.arrayX);
         this.setXoByArray();
     }
 
@@ -142,6 +141,7 @@ class Board extends Item {
                 }
             });
         });
+        this.draw();
     }
 
     checkDraw() {

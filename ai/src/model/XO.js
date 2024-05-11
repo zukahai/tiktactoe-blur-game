@@ -39,11 +39,11 @@ class XO extends Item {
             this.yAlignment = old.yAlignment + (size - this.height) / 2;
             if (++step == nStep) {
                 clearInterval(this.ani); 
-                // this.width = old.width;
-                // this.height = old.height;
-                // this.xAlignment = old.xAlignment;
-                // this.yAlignment = old.yAlignment;
+                this.width = old.width;
+                this.height = old.height;
+                this.xAlignment = old.xAlignment;
+                this.yAlignment = old.yAlignment;
             }
-        }, 50 / nStep);
+        }, 1);
     }
 }
