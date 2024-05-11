@@ -66,6 +66,7 @@ class Board extends Item {
         if (row >= 0 && row < 3 && col >= 0 && col < 3 && this.data[row][col] === '' && (value === 'x' || value === 'o')) {
             this.data[row][col] = value;
             this.setArrayXO(row, col, value);
+            this.xo[row][col].setAmimation(0);
             this.type = this.type === 'x' ? 'o' : 'x';
             return true;
         }
