@@ -60,6 +60,7 @@ class Game {
         let winner = this.board.checkWin(this.board.data);
         if (winner !== '' && !this.isWin) {
             this.isWin = true;
+            this.board.score = (winner == 'x') ? -Minimax.maxDepth : Minimax.maxDepth;
             this.board.showResult();
             setTimeout(() => {
                 alert("You " + ((winner == 'x') ? "win!" : "lose!"));
@@ -69,7 +70,7 @@ class Game {
                 this.isWin = false;
             }, 500);
         }
-        if (this.stepBot++ === 15) {
+        if (this.stepBot++ === 15 && !this.isWin) {
             this.draw();
             this.board.setPlayerTurn(false);
             this.board.autoPlay();
@@ -134,6 +135,10 @@ class Game {
         this.context.fillStyle = 'cyan';
         this.context.textAlign = 'left';
         this.context.font = (30) + 'px NVNPixelFJVerdana8pt';
+        if (this.isMobile()) {
+            this.context.textAlign = 'center';
+            this.context.fillText("Level " + (this.board.level + 1), this.gameWidth / 2, 100);
+        } else
         this.context.fillText("Level " + (this.board.level + 1), 10, 50);
     }
 
