@@ -17,7 +17,7 @@ class Board extends Item {
             [, ,]
         ]
         this.score = 0;
-        this.level = 10;
+        this.level = 0;
     }
 
     getAtrribute() {
