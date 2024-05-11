@@ -17,6 +17,7 @@ class Board extends Item {
             [, ,]
         ]
         this.score = 0;
+        this.level = 0;
     }
 
     getAtrribute() {
@@ -174,13 +175,18 @@ class Board extends Item {
         this.score = 0;
     }
 
+    nextLevel() {
+        this.level++;
+        this.clear();
+    }
+
     showResult() {
         this.data = this.data.map(row => row.map(col => col === 'xb1' || col == 'xb2' ? 'x' : col === 'ob1' || col == 'ob2' ? 'o' : col));
         this.setXoByArray();
     }
 
     autoPlay() {
-        let { row, col, score } = Minimax.getBestMove(this.data);
+        let { row, col, score } = Minimax.getBestMove(this.data, this.level);
         this.score = score;
         let isSolveSuccess = this.setValue(row, col, this.type);
         if (isSolveSuccess)

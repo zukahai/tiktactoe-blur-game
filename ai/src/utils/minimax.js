@@ -21,9 +21,9 @@ class Minimax{
     static getScore(data, depth){
         let winner = Minimax.checkWin(data);
         if(winner === 'o'){
-            return 13 - depth;
+            return Minimax.maxDepth - depth;
         } else if(winner === 'x'){
-            return depth - 13;
+            return depth - Minimax.maxDepth;
         } else {
             return 0;
         }
@@ -110,10 +110,39 @@ class Minimax{
         return data_temp;
     }
 
-    static getBestMove(board){
+    static getDepth(level) {
+        let depthLevel = [
+            {maxDepth: 1, norDepth: 1},
+            {maxDepth: 2, norDepth: 2},
+            {maxDepth: 3, norDepth: 3},
+            {maxDepth: 4, norDepth: 4},
+            {maxDepth: 4, norDepth: 4},
+            {maxDepth: 5, norDepth: 5},
+            {maxDepth: 5, norDepth: 6},
+            {maxDepth: 5, norDepth: 7},
+            {maxDepth: 5, norDepth: 8},
+            {maxDepth: 6, norDepth: 8},
+            {maxDepth: 7, norDepth: 8},
+            {maxDepth: 7, norDepth: 9},
+            {maxDepth: 7, norDepth: 10},
+            {maxDepth: 7, norDepth: 11},
+            {maxDepth: 7, norDepth: 12},
+            {maxDepth: 7, norDepth: 13},
+            {maxDepth: 8, norDepth: 13},
+            {maxDepth: 9, norDepth: 13},
+            {maxDepth: 9, norDepth: 13},
+            {maxDepth: 9, norDepth: 13},
+        ]
+        return {maxDepth: depthLevel[level].maxDepth, norDepth: depthLevel[level].norDepth};
+    }
+
+    static getBestMove(board, level){
         let best = -Infinity;
         let emptyCells = Minimax.getEmptyCells(board);
-        let maxDepth = emptyCells.length == 3 ? Minimax.maxDepth: Minimax.norDepth;
+        let depth = Minimax.getDepth(level);
+        let maxDepth = emptyCells.length == 3 ? depth.maxDepth : depth.norDepth;
+        Minimax.maxDepth = maxDepth;
+
         let ans = new Array(3).fill(null).map(() => new Array(3).fill(null));
         for(let i = 0; i < emptyCells.length; i++){
             let {i: row, j: col} = emptyCells[i];

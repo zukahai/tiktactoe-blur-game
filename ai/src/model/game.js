@@ -64,6 +64,8 @@ class Game {
             setTimeout(() => {
                 alert("You " + ((winner == 'x') ? "win!" : "lose!"));
                 this.board.clear();
+                if (winner == 'x')
+                    this.board.nextLevel();
                 this.isWin = false;
             }, 500);
         }
@@ -129,6 +131,10 @@ class Game {
         if (winRate < 0)
             this.context.fillStyle = "#00ff00";
         this.context.fillText("Win rate: " + -winRate + "%", this.gameWidth / 2, 100 + Y);
+        this.context.fillStyle = 'cyan';
+        this.context.textAlign = 'left';
+        this.context.font = (30) + 'px NVNPixelFJVerdana8pt';
+        this.context.fillText("Level " + (this.board.level + 1), 10, 50);
     }
 
     clearScreen() {
