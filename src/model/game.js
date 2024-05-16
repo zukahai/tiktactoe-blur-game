@@ -4,9 +4,13 @@ class Game {
         this.context = null;
         this.init();
         this.listenMouse();
+        this.count = 20;
+        this.row = 0;
+        this.col = 1;
     }
 
     init() {
+        console.log(this.board);
         this.isWin = false;
         this.gameWidth = 0, this.gameHeight = 0;
         this.canvas = document.createElement("canvas");
@@ -27,6 +31,9 @@ class Game {
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             let { row, col } = this.board.getRowCol(x, y);
             this.board.setValue(row, col, this.board.type);
+            if (this.board.type === 'o' && !this.isWin) {
+                this.count = 0;
+            }
         })
 
         document.addEventListener("mousemove", evt => {
@@ -41,7 +48,7 @@ class Game {
         })
     }
 
-   
+
 
     loop(timestamp) {
         this.fps.calculateFPS(timestamp);
@@ -56,6 +63,14 @@ class Game {
                 this.board.clear();
                 this.isWin = false;
             }, 1000);
+        }
+        if (this.board.type === 'o' && !this.isWin) {
+            if (this.count++ == 20) {
+                let { row, col, score } = Minimax.getBestMove(this.board.data, 10);
+                this.row = row;
+                this.col = col;
+                this.count = -10e9;
+            }
         }
         requestAnimationFrame((timestamp) => this.loop(timestamp));
     }
@@ -83,6 +98,7 @@ class Game {
         // this.drawFPS();
         this.board.draw();
         this.drawText();
+        this.drawRowCol();
     }
 
     drawFPS() {
@@ -93,6 +109,14 @@ class Game {
         if (fps < 30)
             this.context.fillStyle = "red";
         this.context.fillText("FPS: " + fps, 50, 50);
+    }
+
+    drawRowCol() {
+        let center = this.gameWidth / 2;
+        let size = this.gameWidth / 5;
+        this.context.font = (5) + 'px NVNPixelFJVerdana8pt';
+        this.context.fillText("." , center + (this.row - 1) * size, 10);
+        this.context.fillText("." , center + (this.col - 1) * size, this.gameHeight - 10);
     }
 
     drawText() {

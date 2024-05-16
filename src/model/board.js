@@ -15,7 +15,6 @@ class Board extends Item {
             [, ,],
             [, ,]
         ]
-        console.log('board');
     }
 
     getAtrribute() {
