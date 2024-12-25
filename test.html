@@ -21,7 +21,9 @@
                             body: "Đây là thông báo được gửi mỗi 10 giây!",
                             icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
                         });
-                    }, 10000); // 10000ms = 10 giây
+                        console.log("Đã gửi thông báo");
+                        
+                    }, 5000); // 10000ms = 10 giây
                 } else if (permission === "denied") {
                     // Thông báo cho người dùng biết quyền đã bị từ chối
                     alert("Bạn đã từ chối quyền thông báo. Bạn có thể cấp lại quyền thông báo trong cài đặt trình duyệt.");
