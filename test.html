@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông báo mỗi 10 giây</title>
+    <style>
+        .notification {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <h1>Thông báo định kỳ</h1>
@@ -21,12 +31,21 @@
                             body: "Đây là thông báo được gửi mỗi 10 giây!",
                             icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
                         });
-                        console.log("Đã gửi thông báo");
-                        
                     }, 5000); // 10000ms = 10 giây
                 } else if (permission === "denied") {
-                    // Thông báo cho người dùng biết quyền đã bị từ chối
-                    alert("Bạn đã từ chối quyền thông báo. Bạn có thể cấp lại quyền thông báo trong cài đặt trình duyệt.");
+                    // Hiển thị thông báo yêu cầu bật lại quyền
+                    const message = document.createElement("div");
+                    message.classList.add("notification");
+                    message.innerHTML = `
+                        <p>Bạn đã từ chối quyền thông báo. Vui lòng bật lại quyền thông báo để nhận thông báo từ trang web này.</p>
+                        <p>Hướng dẫn: 
+                            <ul>
+                                <li>Google Chrome: Nhấp vào biểu tượng ổ khóa trên thanh địa chỉ, sau đó chọn "Thông báo" và chọn "Cho phép".</li>
+                                <li>Mozilla Firefox: Nhấp vào biểu tượng ổ khóa, sau đó thay đổi quyền "Thông báo" thành "Cho phép".</li>
+                            </ul>
+                        </p>
+                    `;
+                    document.body.appendChild(message);
                 }
             });
         } else {
