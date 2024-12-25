@@ -13,40 +13,51 @@
             font-size: 16px;
             color: #333;
         }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <h1>Thông báo định kỳ</h1>
     <p>Trang này sẽ gửi thông báo mỗi 10 giây nếu được cho phép.</p>
 
+    <!-- Nút để yêu cầu quyền thông báo -->
+    <button class="button" id="enable-notifications">Bật thông báo</button>
+
     <script>
         // Kiểm tra hỗ trợ Notification API
         if ("Notification" in window) {
-            // Yêu cầu quyền thông báo
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
-                    // Gửi thông báo mỗi 10 giây
-                    setInterval(() => {
-                        new Notification("Thông báo từ trang web", {
-                            body: "Đây là thông báo được gửi mỗi 10 giây!",
-                            icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
-                        });
-                    }, 5000); // 10000ms = 10 giây
-                } else if (permission === "denied") {
-                    // Hiển thị thông báo yêu cầu bật lại quyền
-                    const message = document.createElement("div");
-                    message.classList.add("notification");
-                    message.innerHTML = `
-                        <p>Bạn đã từ chối quyền thông báo. Vui lòng bật lại quyền thông báo để nhận thông báo từ trang web này.</p>
-                        <p>Hướng dẫn: 
-                            <ul>
-                                <li>Google Chrome: Nhấp vào biểu tượng ổ khóa trên thanh địa chỉ, sau đó chọn "Thông báo" và chọn "Cho phép".</li>
-                                <li>Mozilla Firefox: Nhấp vào biểu tượng ổ khóa, sau đó thay đổi quyền "Thông báo" thành "Cho phép".</li>
-                            </ul>
-                        </p>
-                    `;
-                    document.body.appendChild(message);
-                }
+            const enableNotificationsButton = document.getElementById("enable-notifications");
+
+            // Lắng nghe sự kiện khi người dùng nhấn nút để yêu cầu quyền thông báo
+            enableNotificationsButton.addEventListener("click", () => {
+                // Yêu cầu quyền thông báo
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        // Gửi thông báo mỗi 10 giây
+                        setInterval(() => {
+                            new Notification("Thông báo từ trang web", {
+                                body: "Đây là thông báo được gửi mỗi 10 giây!",
+                                icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
+                            });
+                        }, 5000); // 10000ms = 10 giây
+                        alert("Bạn đã cấp quyền thông báo!");
+                    } else if (permission === "denied") {
+                        // Hiển thị thông báo yêu cầu bật lại quyền
+                        alert("Bạn đã từ chối quyền thông báo. Vui lòng bật lại quyền thông báo trong cài đặt trình duyệt.");
+                    }
+                });
             });
         } else {
             alert("Trình duyệt của bạn không hỗ trợ Notification API.");
