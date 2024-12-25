@@ -32,27 +32,48 @@
     <h1>Thông báo định kỳ</h1>
     <p>Trang này sẽ gửi thông báo mỗi 10 giây nếu được cho phép.</p>
 
-    <button class="button" id="enable-notifications">Bật thông báo</button>
+    <!-- Nút để yêu cầu quyền thông báo -->
+    <button class="button" id="enable-notifications" style="display: none;">Bật thông báo</button>
 
     <script>
+        // Kiểm tra hỗ trợ Notification API
         if ("Notification" in window) {
             const enableNotificationsButton = document.getElementById("enable-notifications");
 
-            enableNotificationsButton.addEventListener("click", () => {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        setInterval(() => {
-                            new Notification("Thông báo từ trang web", {
-                                body: "Đây là thông báo được gửi mỗi 10 giây!",
-                                icon: "https://via.placeholder.com/128" 
-                            });
-                        }, 10000); 
-                        alert("Bạn đã cấp quyền thông báo!");
-                    } else if (permission === "denied") {
-                        alert("Bạn đã từ chối quyền thông báo. Vui lòng bật lại quyền thông báo trong cài đặt trình duyệt.");
-                    }
+            // Kiểm tra quyền thông báo khi trang tải
+            if (Notification.permission === "granted") {
+                // Gửi thông báo mỗi 10 giây nếu quyền thông báo đã được cấp
+                setInterval(() => {
+                    new Notification("Thông báo từ trang web", {
+                        body: "Đây là thông báo được gửi mỗi 10 giây!",
+                        icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
+                    });
+                }, 10000); // 10000ms = 10 giây
+            } else if (Notification.permission === "denied") {
+                alert("Bạn đã từ chối quyền thông báo. Vui lòng bật lại quyền thông báo trong cài đặt trình duyệt.");
+            } else {
+                // Nếu chưa cấp quyền, hiển thị nút bật thông báo
+                enableNotificationsButton.style.display = "block";
+
+                // Lắng nghe sự kiện khi người dùng nhấn nút để yêu cầu quyền thông báo
+                enableNotificationsButton.addEventListener("click", () => {
+                    // Yêu cầu quyền thông báo
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            // Gửi thông báo mỗi 10 giây
+                            setInterval(() => {
+                                new Notification("Thông báo từ trang web", {
+                                    body: "Đây là thông báo được gửi mỗi 10 giây!",
+                                    icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
+                                });
+                            }, 10000); // 10000ms = 10 giây
+                            alert("Bạn đã cấp quyền thông báo!");
+                        } else if (permission === "denied") {
+                            alert("Bạn đã từ chối quyền thông báo. Vui lòng bật lại quyền thông báo trong cài đặt trình duyệt.");
+                        }
+                    });
                 });
-            });
+            }
         } else {
             alert("Trình duyệt của bạn không hỗ trợ Notification API.");
         }
