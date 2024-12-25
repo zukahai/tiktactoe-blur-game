@@ -32,29 +32,23 @@
     <h1>Thông báo định kỳ</h1>
     <p>Trang này sẽ gửi thông báo mỗi 10 giây nếu được cho phép.</p>
 
-    <!-- Nút để yêu cầu quyền thông báo -->
     <button class="button" id="enable-notifications">Bật thông báo</button>
 
     <script>
-        // Kiểm tra hỗ trợ Notification API
         if ("Notification" in window) {
             const enableNotificationsButton = document.getElementById("enable-notifications");
 
-            // Lắng nghe sự kiện khi người dùng nhấn nút để yêu cầu quyền thông báo
             enableNotificationsButton.addEventListener("click", () => {
-                // Yêu cầu quyền thông báo
                 Notification.requestPermission().then(permission => {
                     if (permission === "granted") {
-                        // Gửi thông báo mỗi 10 giây
                         setInterval(() => {
                             new Notification("Thông báo từ trang web", {
                                 body: "Đây là thông báo được gửi mỗi 10 giây!",
-                                icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
+                                icon: "https://via.placeholder.com/128" 
                             });
-                        }, 5000); // 10000ms = 10 giây
+                        }, 10000); 
                         alert("Bạn đã cấp quyền thông báo!");
                     } else if (permission === "denied") {
-                        // Hiển thị thông báo yêu cầu bật lại quyền
                         alert("Bạn đã từ chối quyền thông báo. Vui lòng bật lại quyền thông báo trong cài đặt trình duyệt.");
                     }
                 });
