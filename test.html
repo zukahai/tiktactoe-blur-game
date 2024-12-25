@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông báo mỗi 10 giây</title>
+</head>
+<body>
+    <h1>Thông báo định kỳ</h1>
+    <p>Trang này sẽ gửi thông báo mỗi 10 giây nếu được cho phép.</p>
+
+    <script>
+        // Kiểm tra hỗ trợ Notification API
+        if ("Notification" in window) {
+            // Yêu cầu quyền thông báo
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    // Gửi thông báo mỗi 10 giây
+                    setInterval(() => {
+                        new Notification("Thông báo từ trang web", {
+                            body: "Đây là thông báo được gửi mỗi 10 giây!",
+                            icon: "https://via.placeholder.com/128" // URL của icon nếu muốn
+                        });
+                    }, 10000); // 10000ms = 10 giây
+                } else if (permission === "denied") {
+                    // Thông báo cho người dùng biết quyền đã bị từ chối
+                    alert("Bạn đã từ chối quyền thông báo. Bạn có thể cấp lại quyền thông báo trong cài đặt trình duyệt.");
+                }
+            });
+        } else {
+            alert("Trình duyệt của bạn không hỗ trợ Notification API.");
+        }
+    </script>
+</body>
+</html>
